@@ -13,7 +13,9 @@ const Header = () => {
       })
     })
   }, [])
+
   const username = userinfo?.username
+  
   function logout() {
     fetch("http://localhost:4000/logout", {
       method: "POST",
