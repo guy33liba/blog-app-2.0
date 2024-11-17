@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
+import { UserContext } from "../Usercontext"
 const LoginPage = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [redirect, setRedirect] = useState(false)
+  const { setUserinfo, userinfo } = useContext(UserContext)
   const login = async (e) => {
     e.preventDefault()
     const response = await fetch("http://localhost:4000/login", {
@@ -13,6 +15,10 @@ const LoginPage = () => {
       credentials: "include",
     })
     if (response.ok) {
+      response.json().then((userinfo) => {
+        setUserinfo(userinfo)
+        setRedirect(true)
+      })
       setRedirect(true)
       response.json()
     }

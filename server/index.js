@@ -40,7 +40,7 @@ app.post("/login", async (req, res) => {
   if (passOK) {
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       console.log(username)
-      res.cookie("token", token).json("ok")
+      res.cookie("token", token).json({ id: userDoc._id, username })
     })
   } else {
     res.status(401).json({ error: "invalid credentials" })

@@ -12,7 +12,7 @@ const Header = () => {
         setUserinfo(userInfo)
       })
     })
-  }, [userinfo])
+  }, [])
   const username = userinfo?.username
   function logout() {
     fetch("http://localhost:4000/logout", {
