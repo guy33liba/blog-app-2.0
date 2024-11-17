@@ -88,6 +88,7 @@ button {
  color: #fff;
  border-radius: 5px;
  padding: 7px 0;
+ cursor: pointer;
 }
 form h1 {
  text-align: center;
