@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import userModel from "./models/UserScema.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import cookieParser from "cookie-parser"
 
 const app = express()
 
@@ -12,7 +13,7 @@ const secret = "secretservice"
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
-
+app.use(cookieParser())
 const mongourl =
   "mongodb+srv://guy33liba:guy33liba@blog-app.xo5dt.mongodb.net/?retryWrites=true&w=majority&appName=blog-app"
 
@@ -43,5 +44,12 @@ app.post("/login", async (req, res) => {
   } else {
     res.status(401).json({ error: "invalid credentials" })
   }
+})
+app.get("/profile", async (req, res) => {
+  const { token } = req.cookies
+  jwt.verify(token, secret, {}, (err, token) => {
+    if (err) throw err
+    res.json(token)
+  })
 })
 app.listen(4000)
