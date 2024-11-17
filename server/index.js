@@ -57,6 +57,6 @@ app.get("/profile", async (req, res) => {
   })
 })
 app.post("/logout", async (req, res) => {
-  res.cookie("token", "")
+  res.cookie("token", "").json("ok")
 })
 app.listen(4000)
