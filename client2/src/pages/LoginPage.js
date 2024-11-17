@@ -19,8 +19,6 @@ const LoginPage = () => {
         setUserinfo(userinfo)
         setRedirect(true)
       })
-      setRedirect(true)
-      response.json()
     }
   }
   if (redirect) {
