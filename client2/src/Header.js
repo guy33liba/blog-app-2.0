@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { UserContext } from "./Usercontext"
 
 const Header = () => {
-  const { setUserInfo } = useContext(UserContext)
+  const { setUserInfo, userinfo } = useContext(UserContext)
   useEffect(() => {
     fetch("http://localhost:4000/profile", {
       credentials: "include",
@@ -13,7 +13,7 @@ const Header = () => {
       })
     })
   }, [])
-
+  const username = userinfo.username
   function logout() {
     fetch("http://localhost:4000/logout", {
       method: "POST",
