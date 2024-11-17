@@ -29,7 +29,7 @@ header .logo {
 }
 header nav {
   display: flex;
-  gap: 15px;
+  gap: 25px;
 }
 div.post {
   display: grid;
