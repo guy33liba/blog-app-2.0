@@ -3,7 +3,9 @@ import { Link } from "react-router-dom"
 
 const Header = () => {
   useEffect(() => {
-    fetch("http://localhost:4000/profile", { credentials: "include" })
+    fetch("http://localhost:4000/profile", {
+      credentials: "include",
+    })
   }, [])
   return (
     <div>

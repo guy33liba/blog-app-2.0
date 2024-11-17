@@ -14,6 +14,7 @@ const secret = "secretservice"
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
 app.use(cookieParser())
+
 const mongourl =
   "mongodb+srv://guy33liba:guy33liba@blog-app.xo5dt.mongodb.net/?retryWrites=true&w=majority&appName=blog-app"
 
@@ -35,7 +36,7 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body
   const userDoc = await userModel.findOne({ username })
   const passOK = bcrypt.compareSync(password, userDoc.password)
-  res.json(passOK)
+  // res.json(passOK) לא לא לא
   if (passOK) {
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       console.log(username)
@@ -48,8 +49,11 @@ app.post("/login", async (req, res) => {
 app.get("/profile", async (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, secret, {}, (err, token) => {
-    if (err) throw err
-    res.json(token)
+    if (err) {
+      res.status(401).json({ error: "invalid token" })
+    } else {
+      res.json(token)
+    }
   })
 })
 app.listen(4000)
