@@ -13,12 +13,11 @@ const LoginPage = () => {
   }).then((res) => res.json())
  }
  return (
-  <form className="login" onSubmit={login}>
+  <form onSubmit={login}>
    <h1>Login</h1>
 
    <input
     type="text"
-    className=""
     placeholder="username"
     value={username}
     onChange={(e) => setUsername(e.target.value)}
