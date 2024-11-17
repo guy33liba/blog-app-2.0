@@ -7,7 +7,7 @@ export default function CreatePost() {
       <input type="summary" placeholder="Summary" />
       <input type="file" />
       <ReactQuill />
-      <button>Post</button>
+      <button>Create Post</button>
     </form>
   )
 }
