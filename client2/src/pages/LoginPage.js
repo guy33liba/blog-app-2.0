@@ -19,8 +19,6 @@ const LoginPage = () => {
   }
   if (redirect) {
     return <Navigate to={"/"} />
-  } else {
-    alert("wrong credentials")
   }
   return (
     <form onSubmit={login}>
