@@ -25,7 +25,7 @@ const LoginPage = () => {
     return <Navigate to={"/"} />
   }
   return (
-    <form onSubmit={login}>
+    <form className="login" onSubmit={login}>
       <h1>Login</h1>
 
       <input

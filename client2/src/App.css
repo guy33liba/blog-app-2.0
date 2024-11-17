@@ -90,9 +90,11 @@ button {
   padding: 7px 0;
   cursor: pointer;
 }
-form h1 {
-  text-align: center;
-}
+
 .logout {
   cursor: pointer;
+}
+form.login h1,
+form.register h1 {
+  text-align: center;
 }
