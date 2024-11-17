@@ -10,7 +10,7 @@ const app = express()
 const salt = bcrypt.genSaltSync(10)
 const secret = "secretservice"
 
-app.use(cors())
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use(express.json())
 
 const mongourl =
