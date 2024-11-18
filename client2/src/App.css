@@ -101,3 +101,11 @@ form.register h1 {
 a {
  font-size: 25px;
 }
+.createPost {
+ width: 70%;
+ margin-left: 15%;
+}
+.createPostButton {
+ margin-top: 20px;
+ height: 40px;
+}
