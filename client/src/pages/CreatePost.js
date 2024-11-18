@@ -1,26 +1,31 @@
 import { useState } from "react"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import { Navigate } from "react-router-dom"
 export default function CreatePost() {
- const [title, settitle] = useState("")
- const [summary, setsummary] = useState("")
- const [content, setcontent] = useState("")
+ const [title, setTitle] = useState("")
+ const [summary, setSummary] = useState("")
+ const [content, setContent] = useState("")
  const [files, setFiles] = useState("")
- const formats = ["header", "bold", "italic", "underline", "strike"]
+ const [redirect, setRedirect] = useState(false)
 
- function createNewPost(e) {
-  e.preventDefault()
+ async function createNewPost(ev) {
   const data = new FormData()
   data.set("title", title)
   data.set("summary", summary)
   data.set("content", content)
   data.set("file", files[0])
-  console.log(files)
-  fetch("http://localhost:4000/post"),
-   {
-    method: "POST",
-    body: data,
-   }
+  ev.preventDefault()
+  const response = await fetch("http://localhost:4000/post", {
+   method: "POST",
+   body: data,
+  })
+  if (response.ok) {
+   setRedirect(true)
+  }
+ }
+ if (redirect) {
+  return <Navigate to={"/"} />
  }
  return (
   <form onSubmit={createNewPost} className="createPost">
@@ -28,16 +33,16 @@ export default function CreatePost() {
     type="title"
     placeholder="Title"
     value={title}
-    onChange={(e) => settitle(e.target.value)}
+    onChange={(e) => setTitle(e.target.value)}
    />
    <input
     type="summary"
     placeholder="Summary"
     value={summary}
-    onChange={(e) => setsummary(e.target.value)}
+    onChange={(e) => setSummary(e.target.value)}
    />
    <input type="file" onChange={(e) => setFiles(e.target.files)} />
-   <ReactQuill value={content} onChange={(e) => setcontent(e)} />
+   <ReactQuill value={content} onChange={(e) => setContent(e)} />
    <button className="createPostButton">Create Post</button>
   </form>
  )

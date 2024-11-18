@@ -6,7 +6,8 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import cookieParser from "cookie-parser"
 import multer from "multer"
-
+import fs from "fs"
+import postModel from "./models/Post.js"
 const uploadMiddleware = multer({ dest: "uploads/" })
 const app = express()
 
@@ -62,7 +63,15 @@ app.post("/logout", async (req, res) => {
  res.cookie("token", "").json("ok")
 })
 
-app.post("/post", uploadMiddleware.single('file')(req, res) => {
+app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
+ const { originalname, path } = req.file
+ const parts = originalname.split(".")
+ const ext = parts[parts.length - 1]
+ const newPath = path + "." + ext
+ fs.renameSync(path, newPath)
+ const { title, summary, content } = req.body
+ const postDoc = await postModel.create({ title, summary, content, cover: newPath })
 
+ res.json(postDoc)
 })
 app.listen(4000)
