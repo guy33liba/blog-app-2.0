@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser"
 import multer from "multer"
 import fs from "fs"
 import postModel from "./models/Post.js"
+
 const uploadMiddleware = multer({ dest: "uploads/" })
 const app = express()
 
@@ -38,6 +39,9 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
  const { username, password } = req.body
  const userDoc = await userModel.findOne({ username })
+ if (!userDoc) {
+  res.status(401).json({ error: "user not exist" })
+ }
  const passOK = bcrypt.compareSync(password, userDoc.password)
 
  if (passOK) {
